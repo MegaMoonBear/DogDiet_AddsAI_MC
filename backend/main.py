@@ -25,8 +25,8 @@ from schemas.schemas import (
     StandardResponse  # Generic response model
 )
 
-# Import database connection functions
-from database import (
+# Import database connection functions from models folder
+from models.database import (
     get_database_pool,  # Initialize connection pool
     close_database_pool,  # Close connection pool on shutdown
     execute_query,  # Execute INSERT/UPDATE/DELETE queries

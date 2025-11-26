@@ -1,11 +1,16 @@
-:root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+/* File location: frontend/src/index.css - Global CSS styles for entire React application */
+/* Imported by: frontend/src/main.jsx */
+/* These styles apply to all components unless overridden by component-specific CSS */
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+/* Root CSS variables and default styling for the entire app */
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;  /* Default font stack */
+  line-height: 1.5;  /* Spacing between lines of text */
+  font-weight: 400;  /* Normal font weight */
+
+  color-scheme: light dark;  /* Support both light and dark mode */
+  color: rgba(255, 255, 255, 0.87);  /* Default text color (light gray for dark mode) */
+  background-color: #242424;  /* Default dark background */
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;

@@ -1,3 +1,4 @@
+<!-- Notes on schema, since not understood -->
 A **schema** is a blueprint or structure that defines:
 - Data format - What fields/properties exist
 - Data types - What kind of data (string, number, etc.)

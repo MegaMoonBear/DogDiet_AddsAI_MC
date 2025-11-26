@@ -1,8 +1,13 @@
+/* File location: frontend/src/App.css - Component-specific styles for App.jsx */
+/* Imported by: frontend/src/App.jsx */
+/* These styles apply specifically to the App component and its children */
+
+/* Main container for the React app (mounts to <div id="root"> in index.html) */
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+  max-width: 1280px;  /* Limit width for better readability on large screens */
+  margin: 0 auto;  /* Center horizontally */
+  padding: 2rem;  /* Add padding around content */
+  text-align: center;  /* Center-align text by default */
 }
 
 .logo {

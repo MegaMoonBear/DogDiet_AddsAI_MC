@@ -1,4 +1,6 @@
-# backend/database.py - Database connection configuration for Neon PostgreSQL
+# File location: backend/models/database.py - Database connection configuration for Neon PostgreSQL
+# This module provides connection pooling and helper functions for database operations
+# Used by: backend/main.py (FastAPI routes import get_database_pool, execute_query, fetch_one, fetch_all)
 
 import os
 from dotenv import load_dotenv  # Loads environment variables from .env file
