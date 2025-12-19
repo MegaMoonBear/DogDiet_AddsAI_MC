@@ -50,9 +50,15 @@ async def lifespan(app: FastAPI):
     Handles startup and shutdown events.
     """
     # Startup
-    await get_database_pool()  # Create database connection pool
-    print("✅ Database connection pool initialized")
+    try:
+        await get_database_pool()  # Create database connection pool
+        print("✅ Database connection pool initialized")
+    except Exception as e:
+        print(f"⚠️  WARNING: Database connection failed: {e}")
+        print("   The application will run, but database features will not work.")
+    
     yield
+    
     # Shutdown
     await close_database_pool()  # Close all database connections
     print("✅ Database connection pool closed")
