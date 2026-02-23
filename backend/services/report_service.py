@@ -1,6 +1,11 @@
 
 # backend/services/report_service.py - Selects appropriate report based on user selections of age-class and health issues.
 
+
+# SHOULD THIS BE CONVERTED TO AN OPTIONAL ~.pdf FOR PRINTING, IF REQUESTED? SINCE LIKELY ON PHONE, USE EMAIL FROM PROFILE
+
+
+
 def choose_report(status_dietRelat_preReg, breed):  # Function takes list of health statuses and breed name as inputs
     """
     Determines which report/recommendation to provide based on dog's health status.

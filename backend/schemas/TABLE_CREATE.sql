@@ -1,5 +1,17 @@
 -- Updated for WhiskerWorthy Phase 2 by adding AI to generate nutritional questions for veterinarian 
 
+
+-- NEEDS: 
+    -- OTHER TABLES LISTED AT BOTTOM OF THIS FILE FOR FUTURE UPDATES/EXPANSIONS
+    -- ANY FOR THESE?
+        -- OTHER TABLES FOR USER REGISTRATION, LOGIN, ETC. IN BACKEND/schemas/USER_AUTH_CREATE.sql
+            -- Registration phase - Table to track user progress through multi-step registration process
+            -- User profile table - Store user details (name, email, password hash, preferences)
+        -- API? Integrate breed's group (ID and name... fact(s)) from DogAPI.org, based on user input breed name
+        -- AI? Record input data by dog*, then experts rate each question by inputs, etc. (*User/Profile/Owner may have more than one dog)
+        -- ML? Use machine learning to analyze user data (eventually to start providing (then improving) recommendations  
+
+
 -- SQL code for creating table that will store DEVELOPER info on breeds to 3 initial dog questions
 CREATE TABLE breedsAKC_IDs_v3 (
   breed_name_AKC TEXT PRIMARY KEY,  --see questions_home_dog_4Q_v2 table's "id" field
@@ -14,8 +26,8 @@ CREATE TABLE breedsAKC_IDs_v3 (
   breed_group_AKC_ID TEXT, -- e.g. IDs for sporting, hound, working, terrier, toy, non-sporting, herding, misc
   dogapi_id TEXT --INTERNAL-ONLY 35-character ID for KEY in dog information database, DogAPI.org
 );
-INSERT INTO breedsAKC_IDs_v3 (breed_name_AKC, dogapi_id)
-VALUES ('Labrador Retriever', 'dogapi_0123456789abcdef012345678901234');
+-- INSERT INTO breedsAKC_IDs_v3 (breed_name_AKC, dogapi_id)
+-- VALUES ('Labrador Retriever', 'dogapi_0123456789abcdef012345678901234');
 
 -- SQL code for creating table that will collect user responses to 3 initial dog questions
 CREATE TABLE questions_home_dog_4Q_v2 (

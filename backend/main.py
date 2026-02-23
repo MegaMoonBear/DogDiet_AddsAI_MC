@@ -7,57 +7,58 @@
     # PUT route for full replacements
 
 
-from fastapi import FastAPI, HTTPException, Path, Query, Request  # Import FastAPI framework and utilities
-from fastapi.middleware.cors import CORSMiddleware  # Import CORS middleware to allow frontend to call backend from different origin
-from fastapi.staticfiles import StaticFiles
-from fastapi.responses import FileResponse
-from typing import List, Optional, Dict, Any  # Import type hints for better code clarity
-import uvicorn  # Import uvicorn ASGI server to run FastAPI
-import logging
-import os
-from contextlib import asynccontextmanager
-from fastapi.concurrency import run_in_threadpool
+from fastapi import FastAPI, HTTPException, Path, Query, Request    # Import FastAPI framework and utilities
+from fastapi.middleware.cors import CORSMiddleware          # Import CORS middleware to allow frontend to call backend from different origin
+from fastapi.staticfiles import StaticFiles                         # Import StaticFiles to serve static assets (CSS, JS, images)
+from fastapi.responses import FileResponse                          # Import FileResponse to serve index.html       
+from typing import List, Optional, Dict, Any                        # Import type hints for better code clarity
+import uvicorn                                                      # Import uvicorn ASGI server to run FastAPI
+import logging                                                      # Import logging for server-side logging
+import os                                                           # Import os for file path operations  
+from contextlib import asynccontextmanager                          # Import asynccontextmanager for lifespan events
+from fastapi.concurrency import run_in_threadpool                   # Import utility to run blocking code in threadpool
 
 # Import business logic from services folder
-from .services.report_service import choose_report  # Import the report selection function
-from .services.chat_services import chat_with_gpt
+# from .services.report_service import choose_report                # Import the report selection function
+from .services.chat_services import chat_with_gpt                   # Import the chat service function for AI-generated questions
 
 # Adjusted imports to use relative paths
 from .schemas.schemas import (
-    DogQuestionnaireInput,  # User questionnaire input model
-    BreedCreateInput,  # Create new breed input model
-    BreedUpdateInput,  # Partial breed update input model
-    BreedFullUpdateInput,  # Full breed replacement input model
-    QuestionnaireResponse,  # Questionnaire response model
-    StandardResponse  # Generic response model
+    DogQuestionnaireInput,                                          # User questionnaire input model that matches frontend form
+    BreedCreateInput,                                               # Create new breed input model that requires all fields
+    BreedUpdateInput,                                               # Partial breed update input model that makes all fields optional
+    BreedFullUpdateInput,                                           # Full breed replacement input model that requires all fields
+    # QuestionnaireResponse,  # Questionnaire response model
+    # StandardResponse  # Generic response model
 )
 
 # Import database connection functions from models folder
 from .models.database import (
-    get_database_pool,  # Initialize connection pool
-    close_database_pool,  # Close connection pool on shutdown
-    execute_query,  # Execute INSERT/UPDATE queries
-    fetch_one,  # Fetch single row
-    fetch_all  # Fetch multiple rows
+    get_database_pool,                                              # Initialize connection pool to database on startup, so connections reused
+    close_database_pool,                                            # Close connection pool on shutdown, so resources freed
+    execute_query,                                                  # Execute INSERT/UPDATE queries to database, so no return value because not needed
+    fetch_one,                                                      # Fetch single row from database to return one dictionary
+    fetch_all                                                       # Fetch multiple rows from database to return list of dictionaries 
+    # 2 prior "fetch" functions are both included for completeness, because both used in various routes
 )
 
 # ==================== Application Lifecycle Events ====================
 
-@asynccontextmanager
-async def lifespan(app: FastAPI):
+@asynccontextmanager                                                # Define lifespan context manager for startup/shutdown events
+async def lifespan(app: FastAPI):                                   # Lifespan function takes FastAPI app as parameter
     """
     Lifespan context manager for FastAPI application.
     Handles startup and shutdown events.
     """
     # Startup
-    try:
-        await get_database_pool()  # Create database connection pool
-        print("✅ Database connection pool initialized")
-    except Exception as e:
-        print(f"⚠️  WARNING: Database connection failed: {e}")
+    try:                                                            # Attempt to initialize database connection pool
+        await get_database_pool()                                   # Create database connection pool
+        print("✅ Database connection pool initialized")           # Log success message in Terminal
+    except Exception as e:                                          # Catch exceptions during database connection initialization
+        print(f"⚠️  WARNING: Database connection failed: {e}")     # Log warning message if connection fails
         print("   The application will run, but database features will not work.")
     
-    yield
+    yield                                                            # Yield control back to FastAPI to run the application
     
     # Shutdown
     await close_database_pool()  # Close all database connections
